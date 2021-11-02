@@ -25,16 +25,23 @@ One of the biggest reasons why R Shiny applications are useful is that they allo
 
 # How to Make A Simple App
 
+We will now learn how to make a simple app that functions as a calculator that can add two numbers with a calculate button. In Shiny there are two parts to every app. The first is the user interface side and the second is the server side of the application. In the user interface side we can define what the user of the app is able to see such as different input systems and how reactive the application is. We can make it to where the app constantly refreshes after the user enters a character if there is a text box, changes the value on a slider, or we can make it to where the user enters all the requested input and then presses a button to refresh the app with the new information when they are ready,
+
+
+We first start with the user interface side where we create two input boxes along with a button that when clicked calculates the difference between the two numbers.
+
 ```R
-def func():
-  target_val = 26.17          # O(1)
-  num = 0                     # O(1)
-  for i in df.some_column:    # O(n)
-    for j in i[0]:            # O(n) -> because it occurs within the first loop, multiply n * n = O(n²)
-      if j == target_val      # O(1)
-      num += 1                # O(1)
-  
-  lst = []
-  for k in df.other_column:   # O(n)
-    lst.append(k)             # O(1)
+ui <- pageWithSidebar(
+  headerPanel("actionButton test"),
+  sidebarPanel(
+    numericInput("one", "First Number:", min = 0, max = 100000, value = 1),
+    numericInput("two", "Second Number:", min = 0, max = 100000, value = 0),
+    br(),
+    actionButton("goButton", "Go!"),
+    p("Click the button to update the value displayed in the main panel.")
+  ),
+  mainPanel(
+    verbatimTextOutput("nText")
+  )
+)
 ```
