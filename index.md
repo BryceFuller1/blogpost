@@ -23,3 +23,18 @@ R Shiny is a framework that was created by Rstudio in order to convert programs 
 # Why are they useful? 
 One of the biggest reasons why R Shiny applications are useful is that they allow users who are not proficient in R to explore and experiment with data in new and exciting ways that they would not be able to do on their own if they just had access to the raw data. Another reasons these applications are useful is that R programmers who wish to publish these applications don't actually need any web development experience. They simply need to learn the framework for Shiny and suddenly they are able to publish very interactive and useful applications for people who may not have any experience with R or even statistics for that matter. 
 
+# How to Make A Simple App
+
+```R
+def func():
+  target_val = 26.17          # O(1)
+  num = 0                     # O(1)
+  for i in df.some_column:    # O(n)
+    for j in i[0]:            # O(n) -> because it occurs within the first loop, multiply n * n = O(n²)
+      if j == target_val      # O(1)
+      num += 1                # O(1)
+  
+  lst = []
+  for k in df.other_column:   # O(n)
+    lst.append(k)             # O(1)
+```
