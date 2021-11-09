@@ -96,6 +96,8 @@ server <- function(input, output) {
 
 shinyApp(ui, server)
 ```
-The top of the code imports the shiny library which allows us to write Shiny applications. The last line of code calls the shinyApp function which takes the ui and server functions as input and actually runs the application. 
+The top of the code imports the shiny library which allows us to write Shiny applications. The last line of code calls the shinyApp function which takes the ui and server functions as input and actually runs the application. The following image is what the application looks like after the user has entered the input and clicked on the calculate button. 
+
+![](https://github.com/BryceFuller1/blogpost/blob/master/Screen%20Shot%202021-11-01%20at%202.43.31%20PM.png)
 
 
