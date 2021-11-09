@@ -2,7 +2,7 @@
 title: Dashboards in R Shiny
 layout: post
 author: BryceFuller1
-post-image: "https://raw.githubusercontent.com/thedevslot/WhatATheme/master/assets/images/SamplePost.png?token=AHMQUEPC4IFADOF5VG4QVN26Z64GG"
+post-image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.efpsa.org%2F2019%2F04%2F24%2F7-easy-steps-to-building-your-own-shiny-app-from-scratch%2F&psig=AOvVaw0kN3qC3DtlFD_SVVHAtC5y&ust=1636514861250000&source=images&cd=vfe&ved=0CAgQjRxqFwoTCLDf9ZOrivQCFQAAAAAdAAAAABAD"
 description: An introduction to why shiny dashboards are useful and how to create a simple one.
 tags:
 - R
