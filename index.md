@@ -31,8 +31,10 @@ We will now learn how to make a simple app that functions as a calculator that c
 We first start with the user interface side where we create two input boxes along with a button that when clicked calculates the difference between the two numbers.
 
 ```R
+library(shiny)
+
 ui <- pageWithSidebar(
-  headerPanel("actionButton test"),
+  headerPanel("Action Button test"),
   sidebarPanel(
     numericInput("one", "First Number:", min = 0, max = 100000, value = 1),
     numericInput("two", "Second Number:", min = 0, max = 100000, value = 0),
@@ -41,7 +43,30 @@ ui <- pageWithSidebar(
     p("Click the button to update the value displayed in the main panel.")
   ),
   mainPanel(
-    verbatimTextOutput("nText")
+    verbatimTextOutput("result")
   )
 )
 ```
+
+It is important to note that we are naming the two input boxes "one" and "two" respectively. This is not displayed on the interface but is strictly behind the scenes. This is because we use these names to refer to these inputs in the server side of the Shiny application. We will now look over the server side of the application and walk through what is happening.
+
+```R
+server <- function(input, output) {
+  
+  ntext <- eventReactive(input$goButton, {
+    input$one-input$two
+  })
+  
+  output$result <- renderText({
+    ntext()
+  })
+}
+
+shinyApp(ui, server)
+```
+
+In the first line we create a server function that can take two variables "input" and "output". We then create a reactive expression called ntest that only runs once the calculate button is pressed by the user. It takes the input from the two input boxes and subtracts the second from the first. Notice how in this function we use the names "goButton", "one", and "two". This is how the server side can communicate with the UI side. We then see that we are storing a value into output$result. We first call the function renderText and pass it the ntext function. This then gets the visual output from the ntext function and stores it into output$result. We then see back in the ui side of the application there is a main panel function which takes the result stored in output$result and outputs it for the user to see using a function called verbatimTextOutput("result").
+
+
+
+
