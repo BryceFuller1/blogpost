@@ -31,10 +31,9 @@ We will now learn how to make a simple app that functions as a calculator that c
 We first start with the user interface side where we create two input boxes along with a button that when clicked calculates the difference between the two numbers.
 
 ```R
-library(shiny)
 
 ui <- pageWithSidebar(
-  headerPanel("Action Button test"),
+  headerPanel("Simple Action Button"),
   sidebarPanel(
     numericInput("one", "First Number:", min = 0, max = 100000, value = 1),
     numericInput("two", "Second Number:", min = 0, max = 100000, value = 0),
@@ -47,8 +46,7 @@ ui <- pageWithSidebar(
   )
 )
 ```
-
-It is important to note that we are naming the two input boxes "one" and "two" respectively. This is not displayed on the interface but is strictly behind the scenes. This is because we use these names to refer to these inputs in the server side of the Shiny application. We will now look over the server side of the application and walk through what is happening.
+We first define a user interface function that gives us a webpage starting with the pageWithSidebar function. Inside this is where we can customize the output however we like. We first give a header and then move on to the sidebarPanel. Here is where we have decided to place our input boxes and action button. Here we can add text for the user to see that tell the user what kind of input is desired. We can also set default values along with a range of possible values that the input boxes can accept. The values that are entered in can be referenced later on in the server side of the application. It is important to note that we are naming the two input boxes "one" and "two" respectively, along with "goButton" for the action button and "result" for the output we wish to display. These names are not displayed on the interface but are strictly behind the scenes. This is because we use these names to refer to these inputs in the server side of the Shiny application to do the actual calculations. We will now look over the server side of the application and walk through what is happening.
 
 ```R
 server <- function(input, output) {
@@ -62,11 +60,42 @@ server <- function(input, output) {
   })
 }
 
-shinyApp(ui, server)
 ```
 
-In the first line we create a server function that can take two variables "input" and "output". We then create a reactive expression called ntest that only runs once the calculate button is pressed by the user. It takes the input from the two input boxes and subtracts the second from the first. Notice how in this function we use the names "goButton", "one", and "two". This is how the server side can communicate with the UI side. We then see that we are storing a value into output$result. We first call the function renderText and pass it the ntext function. This then gets the visual output from the ntext function and stores it into output$result. We then see back in the ui side of the application there is a main panel function which takes the result stored in output$result and outputs it for the user to see using a function called verbatimTextOutput("result").
+In the first line we create a server function that can take two variables "input" and "output". We then create a reactive expression called ntest that only runs once the calculate button is pressed by the user. It takes the input from the two input boxes and subtracts the second from the first. Notice how in this function we use the names "goButton", "one", and "two" which we created in the UI side. This is how the server side can communicate with the UI side. We then see that we are storing a value into output$result. We first call the function renderText and pass it the ntext function. This then gets the visual output from the ntext function and stores it into output$result. We then see back in the ui side of the application there is a main panel function which takes the result stored in output$result and outputs it for the user to see using a function called verbatimTextOutput("result").
 
+Putting it all together we get the following code which produces a functioning Shiny application:
 
+```R
+library(shiny)
+
+ui <- pageWithSidebar(
+  headerPanel("Simple Action Button"),
+  sidebarPanel(
+    numericInput("one", "First Number:", min = 0, max = 100000, value = 1),
+    numericInput("two", "Second Number:", min = 0, max = 100000, value = 0),
+    br(),
+    actionButton("goButton", "Go!"),
+    p("Click the button to update the value displayed in the main panel.")
+  ),
+  mainPanel(
+    verbatimTextOutput("result")
+  )
+)
+
+server <- function(input, output) {
+  
+  ntext <- eventReactive(input$goButton, {
+    input$one-input$two
+  })
+  
+  output$result <- renderText({
+    ntext()
+  })
+}
+
+shinyApp(ui, server)
+```
+The top of the code imports the shiny library which allows us to write Shiny applications. The last line of code calls the shinyApp function which takes the ui and server functions as input and actually runs the application. 
 
 
