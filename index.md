@@ -27,7 +27,7 @@ One of the biggest reasons why R Shiny applications are useful is that they allo
 
 We will now learn how to make a simple app that functions as a calculator that can add two numbers with a calculate button. In Shiny there are two parts to every app. The first is the user interface side and the second is the server side of the application. In the user interface side we can define what the user of the app is able to see such as different input systems and how reactive the application is. We can make it to where the app constantly refreshes after the user enters a character if there is a text box, changes the value on a slider, or we can make it to where the user enters all the requested input and then presses a button to refresh the app with the new information when they are ready,
 
-
+# User Interface Side
 We first start with the user interface side where we create two input boxes along with a button that when clicked calculates the difference between the two numbers.
 
 ```R
@@ -48,6 +48,8 @@ ui <- pageWithSidebar(
 ```
 We first define a user interface function that gives us a webpage starting with the pageWithSidebar function. Inside this is where we can customize the output however we like. We first give a header and then move on to the sidebarPanel. Here is where we have decided to place our input boxes and action button. Here we can add text for the user to see that tell the user what kind of input is desired. We can also set default values along with a range of possible values that the input boxes can accept. The values that are entered in can be referenced later on in the server side of the application. It is important to note that we are naming the two input boxes "one" and "two" respectively, along with "goButton" for the action button and "result" for the output we wish to display. These names are not displayed on the interface but are strictly behind the scenes. This is because we use these names to refer to these inputs in the server side of the Shiny application to do the actual calculations. We will now look over the server side of the application and walk through what is happening.
 
+# Server Side
+
 ```R
 server <- function(input, output) {
   
@@ -63,6 +65,8 @@ server <- function(input, output) {
 ```
 
 In the first line we create a server function that can take two variables "input" and "output". We then create a reactive expression called ntest that only runs once the calculate button is pressed by the user. It takes the input from the two input boxes and subtracts the second from the first. Notice how in this function we use the names "goButton", "one", and "two" which we created in the UI side. This is how the server side can communicate with the UI side. We then see that we are storing a value into output$result. We first call the function renderText and pass it the ntext function. This then gets the visual output from the ntext function and stores it into output$result. We then see back in the ui side of the application there is a main panel function which takes the result stored in output$result and outputs it for the user to see using a function called verbatimTextOutput("result").
+
+# Final Output
 
 Putting it all together we get the following code which produces a functioning Shiny application:
 
@@ -100,4 +104,6 @@ The top of the code imports the shiny library which allows us to write Shiny app
 
 ![](https://github.com/BryceFuller1/blogpost/blob/master/Screen%20Shot%202021-11-08%20at%206.17.15%20PM.png)
 
+# Conclusion
 
+In conclusion we have learned what an R shiny application is, why they are useful, and how to create a simple application that we can use as a template to develop more complicated applications in the future. Another feature that is important to note is the ability to publish the application for free through Rstudio so that others can utilize the application. All that is required is an Rstudio account. As a final note I would like to invite you to create an application that interests you. There are many different ideas out there ranging from simple data visualization apps to complicated machine learning models, the decision is yours!
